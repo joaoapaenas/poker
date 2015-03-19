@@ -48,6 +48,8 @@ import org.ozsoft.texasholdem.bots.BasicBot;
  */
 public class Main extends JFrame implements Client {
     
+    private Main instance = null;
+    
     /** Serial version UID. */
     private static final long serialVersionUID = -5414633931666096443L;
     
@@ -92,7 +94,7 @@ public class Main extends JFrame implements Client {
      * 
      * https://github.com/iluwatar/java-design-patterns#null-object
      */
-    public Main() {
+    private Main() {
         super("Texas Hold'em poker");
         
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -164,6 +166,14 @@ public class Main extends JFrame implements Client {
         table.run();
     }
     
+    public Main getInstance() {
+        if (instance == null) {
+            instance = new Main();
+        }
+        return instance;
+    }
+    
+    
     /**
      * The application's entry point.
      * 
@@ -171,7 +181,9 @@ public class Main extends JFrame implements Client {
      *            The command line arguments.
      */
     public static void main(String[] args) {
-        new Main();
+        Main main = new Main().getInstance();
+                
+        main.setVisible(true);
     }
 
     @Override
