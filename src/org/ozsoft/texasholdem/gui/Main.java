@@ -17,6 +17,9 @@
 
 package org.ozsoft.texasholdem.gui;
 
+import abstractfactory.BobBotFactory;
+import abstractfactory.EddieBotFactory;
+import abstractfactory.MikeBotFactory;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -86,6 +89,8 @@ public class Main extends JFrame implements Client {
 
     /**
      * Constructor.
+     * 
+     * https://github.com/iluwatar/java-design-patterns#null-object
      */
     public Main() {
         super("Texas Hold'em poker");
@@ -104,9 +109,18 @@ public class Main extends JFrame implements Client {
         players = new LinkedHashMap<String, Player>();
         humanPlayer = new Player("Player", STARTING_CASH, this);
         players.put("Player", humanPlayer);
-        players.put("Joe",    new Player("Joe",   STARTING_CASH, new BasicBot(0, 75)));
-        players.put("Mike",   new Player("Mike",  STARTING_CASH, new BasicBot(25, 50)));
-        players.put("Eddie",  new Player("Eddie", STARTING_CASH, new BasicBot(50, 25)));
+        
+        BobBotFactory factory = new BobBotFactory();
+        players.put("Joe", factory.createBot());
+        //players.put("Joe",    new Player("Joe",   STARTING_CASH, new BasicBot(0, 75)));
+        
+        MikeBotFactory factory2 = new MikeBotFactory();
+        players.put("Mike", factory2.createBot());
+        //players.put("Mike",   new Player("Mike",  STARTING_CASH, new BasicBot(25, 50)));
+        
+        EddieBotFactory factory3 = new EddieBotFactory();
+        players.put("Eddie", factory3.createBot());
+        //players.put("Eddie",  new Player("Eddie", STARTING_CASH, new BasicBot(50, 25)));
 
         table = new Table(TABLE_TYPE, BIG_BLIND);
         for (Player player : players.values()) {
