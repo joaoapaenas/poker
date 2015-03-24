@@ -20,6 +20,7 @@ package org.ozsoft.texasholdem;
 import java.util.List;
 
 import org.ozsoft.texasholdem.actions.Action;
+import org.ozsoft.texasholdem.util.IPlayerPrototype;
 
 /**
  * A Texas Hold'em player. <br />
@@ -30,7 +31,7 @@ import org.ozsoft.texasholdem.actions.Action;
  * 
  * @author Oscar Stigter
  */
-public class Player {
+public class Player implements IPlayerPrototype {
 
     /** Name. */
     private final String name;
@@ -71,6 +72,10 @@ public class Player {
         hand = new Hand();
 
         resetHand();
+    }
+
+    public Player clone() {
+        return new Player(this.name, this.cash, this.client);
     }
 
     /**

@@ -122,7 +122,12 @@ public class Main extends JFrame implements Client {
         
         EddieBotFactory factory3 = new EddieBotFactory();
         players.put("Eddie", factory3.createBot());
-        //players.put("Eddie",  new Player("Eddie", STARTING_CASH, new BasicBot(50, 25)));
+
+//        FIXME: Not safe. Assumes player named Eddie exists
+        Player clone = players.get("Eddie").clone();
+        players.remove("Eddie");
+        players.put(clone.getName(), clone);
+        //players.put("math",  new Player("Eddie", STARTING_CASH, new BasicBot(50, 25)));
 
         table = new Table(TABLE_TYPE, BIG_BLIND);
         for (Player player : players.values()) {
