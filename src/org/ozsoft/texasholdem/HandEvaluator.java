@@ -14,124 +14,158 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-
 package org.ozsoft.texasholdem;
 
 /**
  * Evaluator for calculating the value of a poker hand. <br />
  * <br />
  *
- * <b>NOTE:</b> This class is implemented with the focus on performance (instead of clean design).
- * 
+ * <b>NOTE:</b> This class is implemented with the focus on performance (instead
+ * of clean design).
+ *
  * @author Oscar Stigter
  */
 public class HandEvaluator {
-    
-    /** The number of hand rankings. */
-    private static final int NO_OF_RANKINGS  = 6;
-    
-    /** The maximum number of counting pairs. */
+
+    /**
+     * The number of hand rankings.
+     */
+    private static final int NO_OF_RANKINGS = 6;
+
+    /**
+     * The maximum number of counting pairs.
+     */
     private static final int MAX_NO_OF_PAIRS = 2;
-    
-    /** The ranking factors (powers of 13, the number of ranks). */
+
+    /**
+     * The ranking factors (powers of 13, the number of ranks).
+     */
     private static final int[] RANKING_FACTORS = {371293, 28561, 2197, 169, 13, 1};
-    
-    /** The hand value type. */
+
+    /**
+     * The hand value type.
+     */
     private HandValueType type;
-    
-    /** The hand value as integer number. */
+
+    /**
+     * The hand value as integer number.
+     */
     private int value = 0;
-    
-    /** The cards. */
+
+    /**
+     * The cards.
+     */
     private final Card[] cards;
-    
-    /** The rank distribution (number of cards for each rank). */
+
+    /**
+     * The rank distribution (number of cards for each rank).
+     */
     private int[] rankDist = new int[Card.NO_OF_RANKS];
-    
-    /** The suit distribution (number of cards for each suit). */
+
+    /**
+     * The suit distribution (number of cards for each suit).
+     */
     private int[] suitDist = new int[Card.NO_OF_SUITS];
-    
-    /** The number of pairs. */
+
+    /**
+     * The number of pairs.
+     */
     private int noOfPairs = 0;
-    
-    /** The ranks of the pairs. */
+
+    /**
+     * The ranks of the pairs.
+     */
     private int[] pairs = new int[MAX_NO_OF_PAIRS];
-    
-    /** The suit of the Flush. */
+
+    /**
+     * The suit of the Flush.
+     */
     private int flushSuit = -1;
-    
-    /** The rank of the Flush. */
+
+    /**
+     * The rank of the Flush.
+     */
     private int flushRank = -1;
-    
-    /** The rank of the Straight. */
+
+    /**
+     * The rank of the Straight.
+     */
     private int straightRank = -1;
-    
-    /** Whether we have a Straight with a wheeling Ace. */
+
+    /**
+     * Whether we have a Straight with a wheeling Ace.
+     */
     private boolean wheelingAce = false;
-    
-    /** The rank of the Three-of-a-Kind. */
+
+    /**
+     * The rank of the Three-of-a-Kind.
+     */
     private int tripleRank = -1;
-    
-    /** The rank of the Four-of-a-Kind. */
+
+    /**
+     * The rank of the Four-of-a-Kind.
+     */
     private int quadRank = -1;
-    
-    /** The weighed components of the hand value (highest first). */
+
+    /**
+     * The weighed components of the hand value (highest first).
+     */
     private int[] rankings = new int[NO_OF_RANKINGS];
 
     /**
      * Constructor.
      *
-     * @param  hand  The hand to evaulate.
+     * @param hand The hand to evaulate.
      */
     public HandEvaluator(Hand hand) {
         cards = hand.getCards();
-        
+
         // Find patterns.
         calculateDistributions();
         findStraight();
         findFlush();
         findDuplicates();
-        
+
         // Find special values.
-        boolean isSpecialValue =
-                (isStraightFlush() ||
-                 isFourOfAKind()   ||
-                 isFullHouse()     ||
-                 isFlush()         ||
-                 isStraight()      ||
-                 isThreeOfAKind()  ||
-                 isTwoPairs()      ||
-                 isOnePair());
+        boolean isSpecialValue
+                = (isStraightFlush()
+                || isFourOfAKind()
+                || isFullHouse()
+                || isFlush()
+                || isStraight()
+                || isThreeOfAKind()
+                || isTwoPairs()
+                || isOnePair());
         if (!isSpecialValue) {
             calculateHighCard();
         }
-        
+
         // Calculate value.
         for (int i = 0; i < NO_OF_RANKINGS; i++) {
             value += rankings[i] * RANKING_FACTORS[i];
         }
     }
-    
+
     /**
      * Returns the hand value type.
      *
-     * @return  the hand value type
+     * @return the hand value type
      */
     public HandValueType getType() {
         return type;
     }
-    
+
     /**
      * Returns the hand value as an integer.
-     * 
+     *
      * This method should be used to compare hands.
      *
-     * @return  the hand value
+     * @return the hand value
      */
     public int getValue() {
         return value;
     }
-    
+
     /**
      * Calculates the rank and suit distributions.
      */
@@ -141,7 +175,7 @@ public class HandEvaluator {
             suitDist[card.getSuit()]++;
         }
     }
-    
+
     /**
      * Looks for a flush, i.e. five cards with the same suit.
      */
@@ -164,14 +198,14 @@ public class HandEvaluator {
 
     /**
      * Looks for a Straight, i.e. five cards with sequential ranks.
-     * 
+     *
      * The Ace has the rank of One in case of a Five-high Straight (5-4-3-2-A).
      */
     private void findStraight() {
         boolean inStraight = false;
         int rank = -1;
         int count = 0;
-        for (int i = Card.NO_OF_RANKS - 1; i >= 0 ; i--) {
+        for (int i = Card.NO_OF_RANKS - 1; i >= 0; i--) {
             if (rankDist[i] == 0) {
                 inStraight = false;
                 count = 0;
@@ -202,7 +236,7 @@ public class HandEvaluator {
      */
     private void findDuplicates() {
         // Find quads, triples and pairs.
-        for (int i = Card.NO_OF_RANKS - 1; i >= 0 ; i--) {
+        for (int i = Card.NO_OF_RANKS - 1; i >= 0; i--) {
             if (rankDist[i] == 4) {
                 quadRank = i;
             } else if (rankDist[i] == 3) {
@@ -233,9 +267,9 @@ public class HandEvaluator {
 
     /**
      * Returns true if this hand contains One Pair.
-     * 
-     * The value of a One Pair is based on the rank of the pair.
-     * The ranks of the remaining three cards are used as kickers.
+     *
+     * The value of a One Pair is based on the rank of the pair. The ranks of
+     * the remaining three cards are used as kickers.
      *
      * @return True if this hand contains One Pair.
      */
@@ -266,7 +300,7 @@ public class HandEvaluator {
 
     /**
      * Returns true if this hand contains Two Pairs.
-     * 
+     *
      * The value of a Two Pairs is primarily based on the rank of the highest
      * pair, secondarily on the rank of the lowest pair and tertiarily on the
      * ranks of the remaining one kicker.
@@ -279,7 +313,7 @@ public class HandEvaluator {
             rankings[0] = type.getValue();
             // Get the value of the high and low pairs.
             int highRank = pairs[0];
-            int lowRank  = pairs[1];
+            int lowRank = pairs[1];
             rankings[1] = highRank;
             rankings[2] = lowRank;
             // Get the kicker card.
@@ -298,9 +332,9 @@ public class HandEvaluator {
 
     /**
      * Returns true if this hand contains a Three of a Kind.
-     * 
-     * The value of a Three of a Kind is based on the rank of the triple.
-     * The remaining two cards are used as kickers.
+     *
+     * The value of a Three of a Kind is based on the rank of the triple. The
+     * remaining two cards are used as kickers.
      *
      * @return True if this hand contains a Three of a Kind.
      */
@@ -329,7 +363,7 @@ public class HandEvaluator {
 
     /**
      * Returns true if this hand contains a Straight.
-     * 
+     *
      * The value of a Straight is based on the rank of the highest card in the
      * straight.
      *
@@ -348,10 +382,10 @@ public class HandEvaluator {
 
     /**
      * Returns true if this hand contains a Flush.
-     * 
+     *
      * The value of a Flush is based on the rank of the highest flushing card.
      * The remaining flushing cards are used as kickers.
-     * 
+     *
      * @return True if this hand contains a Flush.
      */
     private boolean isFlush() {
@@ -380,7 +414,7 @@ public class HandEvaluator {
 
     /**
      * Returns true if this hand contains a Full House.
-     * 
+     *
      * The value of a Full House is primarily based on the rank of the triple
      * and secondarily on the rank of the pair. There are no kickers.
      *
@@ -397,12 +431,12 @@ public class HandEvaluator {
             return false;
         }
     }
-    
+
     /**
      * Returns true if this hand contains a Four of a Kind.
-     * 
-     * The value of a Four of a Kind is primarily based on the rank of the
-     * quad. There remaining card is used as kicker.
+     *
+     * The value of a Four of a Kind is primarily based on the rank of the quad.
+     * There remaining card is used as kicker.
      *
      * @return True if this hand contains a Four of a Kind.
      */
@@ -428,13 +462,13 @@ public class HandEvaluator {
 
     /**
      * Returns true if this hand contains a Straight Flush.
-     * 
+     *
      * An Ace-high Straight Flush is a Royal Flush, which has a fixed hand value
      * (no kickers).
-     * 
+     *
      * The value of a (non-Royal Flush) Straight Flush is based on the rank of
      * the highest card of the Straight. There are no kickers.
-     * 
+     *
      * @return True if this hand contains a Straight Flush.
      */
     private boolean isStraightFlush() {
@@ -477,7 +511,7 @@ public class HandEvaluator {
                 lastRank = rank;
                 lastSuit = suit;
             }
-            
+
             if (inStraight >= 5 && inFlush >= 5) {
                 if (straightRank == Card.ACE) {
                     // Royal Flush.
@@ -504,5 +538,5 @@ public class HandEvaluator {
             return false;
         }
     }
-    
+
 }
