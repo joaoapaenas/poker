@@ -70,7 +70,7 @@ public interface Client {
     void actorRotated(Player actor);
     
     /**
-     * Handles an update of this player.
+     * Handles an updateMessageReceived of this player.
      * 
      * @param player
      *            The player.
@@ -78,7 +78,7 @@ public interface Client {
     void playerUpdated(Player player);
     
     /**
-     * Handles an update of the board.
+     * Handles an updateMessageReceived of the board.
      * 
      * @param cards
      *            The community cards.

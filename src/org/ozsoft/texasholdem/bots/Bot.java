@@ -18,13 +18,14 @@
 package org.ozsoft.texasholdem.bots;
 
 import org.ozsoft.texasholdem.Client;
+import org.ozsoft.texasholdem.Observer.ISubscriber;
 
 /**
  * Base class for all Texas Hold'em poker bot implementations.
  *  
  * @author Oscar Stigter
  */
-public abstract class Bot implements Client {
+public abstract class Bot implements Client, ISubscriber {
     
     /** Number of hole cards. */
     protected static final int NO_OF_HOLE_CARDS = 2;

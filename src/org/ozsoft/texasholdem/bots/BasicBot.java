@@ -207,5 +207,10 @@ public class BasicBot extends Bot {
         }
         return action;
     }
-    
+
+    @Override
+    public void updateMessageReceived(String message) {
+        // Not yet
+        System.out.println("Bot does not implements messageReceive method");
+    }
 }

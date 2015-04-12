@@ -86,5 +86,9 @@ public class DummyBot extends Bot {
             return Action.CALL;
         }
     }
-    
+
+    @Override
+    public void updateMessageReceived(String message) {
+        // Not yet
+    }
 }

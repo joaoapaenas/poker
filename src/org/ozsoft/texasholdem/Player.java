@@ -19,6 +19,7 @@ package org.ozsoft.texasholdem;
 
 import java.util.List;
 
+import org.ozsoft.texasholdem.Observer.ISubscriber;
 import org.ozsoft.texasholdem.actions.Action;
 import org.ozsoft.texasholdem.util.IPlayerPrototype;
 
@@ -31,7 +32,7 @@ import org.ozsoft.texasholdem.util.IPlayerPrototype;
  * 
  * @author Oscar Stigter
  */
-public class Player implements IPlayerPrototype {
+public class Player implements IPlayerPrototype, ISubscriber {
 
     /** Name. */
     private final String name;
@@ -269,4 +270,8 @@ public class Player implements IPlayerPrototype {
         return name;
     }
 
+    @Override
+    public void updateMessageReceived(String message) {
+        this.getClient().messageReceived(message);
+    }
 }

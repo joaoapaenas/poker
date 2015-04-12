@@ -33,6 +33,7 @@ import javax.swing.JFrame;
 
 import org.ozsoft.texasholdem.Card;
 import org.ozsoft.texasholdem.Client;
+import org.ozsoft.texasholdem.Observer.ISubscriber;
 import org.ozsoft.texasholdem.Player;
 import org.ozsoft.texasholdem.Table;
 import org.ozsoft.texasholdem.TableType;
@@ -46,7 +47,7 @@ import org.ozsoft.texasholdem.bots.BasicBot;
  * 
  * @author Oscar Stigter
  */
-public class Main extends JFrame implements Client {
+public class Main extends JFrame implements Client, ISubscriber {
     
     private Main instance = null;
     
@@ -315,4 +316,9 @@ public class Main extends JFrame implements Client {
         }
     }
 
+    @Override
+    public void updateMessageReceived(String message) {
+        boardPanel.setMessage(message);
+        boardPanel.waitForUserInput();
+    }
 }

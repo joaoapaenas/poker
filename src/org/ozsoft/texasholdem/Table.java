@@ -42,6 +42,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
+import org.ozsoft.texasholdem.Observer.Subject;
 import org.ozsoft.texasholdem.actions.Action;
 import org.ozsoft.texasholdem.actions.BetAction;
 import org.ozsoft.texasholdem.actions.RaiseAction;
@@ -70,6 +71,9 @@ public class Table {
     
     /** The players at the table. */
     private final List<Player> players;
+
+    /** To notifies objects */
+    public static Subject subject;
     
     /** The active players in the current hand. */
     private final List<Player> activePlayers;
@@ -121,6 +125,7 @@ public class Table {
         deck = new Deck();
         board = new ArrayList<Card>();
         pots = new ArrayList<Pot>();
+        subject = new Subject();
     }
     
     /**
@@ -228,11 +233,14 @@ public class Table {
         
         // Determine the active players.
         activePlayers.clear();
+        subject.removeAll(); // Only active players can be notified
+
         for (Player player : players) {
             player.resetHand();
             // Player must be able to afford at least the big blind.
             if (player.getCash() >= bigBlind) {
                 activePlayers.add(player);
+                subject.add(player);
             }
         }
         
@@ -693,9 +701,11 @@ public class Table {
      */
     private void notifyMessage(String message, Object... args) {
         message = String.format(message, args);
-        for (Player player : players) {
-            player.getClient().messageReceived(message);
-        }
+//        for (Player player : players) {
+//            player.getClient().messageReceived(message);
+//        }
+        System.out.println("messaged");
+        subject.notifySubscribers(message);
     }
     
     /**
