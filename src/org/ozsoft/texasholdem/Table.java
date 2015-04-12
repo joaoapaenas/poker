@@ -42,7 +42,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
-import org.ozsoft.texasholdem.Observer.Subject;
+import observer.Subject;
 import org.ozsoft.texasholdem.actions.Action;
 import org.ozsoft.texasholdem.actions.BetAction;
 import org.ozsoft.texasholdem.actions.RaiseAction;

@@ -19,7 +19,7 @@ package org.ozsoft.texasholdem;
 
 import java.util.List;
 
-import org.ozsoft.texasholdem.Observer.ISubscriber;
+import observer.ISubscriber;
 import org.ozsoft.texasholdem.actions.Action;
 import org.ozsoft.texasholdem.util.IPlayerPrototype;
 

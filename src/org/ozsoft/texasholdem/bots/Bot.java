@@ -18,7 +18,7 @@
 package org.ozsoft.texasholdem.bots;
 
 import org.ozsoft.texasholdem.Client;
-import org.ozsoft.texasholdem.Observer.ISubscriber;
+import observer.ISubscriber;
 
 /**
  * Base class for all Texas Hold'em poker bot implementations.

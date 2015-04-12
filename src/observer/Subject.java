@@ -1,4 +1,4 @@
-package org.ozsoft.texasholdem.Observer;
+package observer;
 
 /**
  * Created by matheus on 4/6/15.

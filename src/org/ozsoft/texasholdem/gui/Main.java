@@ -18,7 +18,6 @@
 package org.ozsoft.texasholdem.gui;
 
 import abstractfactory.BobBotFactory;
-import abstractfactory.EddieBotFactory;
 import abstractfactory.MikeBotFactory;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
@@ -34,12 +33,11 @@ import javax.swing.JFrame;
 import factorymethod.EddieFactory;
 import org.ozsoft.texasholdem.Card;
 import org.ozsoft.texasholdem.Client;
-import org.ozsoft.texasholdem.Observer.ISubscriber;
+import observer.ISubscriber;
 import org.ozsoft.texasholdem.Player;
 import org.ozsoft.texasholdem.Table;
 import org.ozsoft.texasholdem.TableType;
 import org.ozsoft.texasholdem.actions.Action;
-import org.ozsoft.texasholdem.bots.BasicBot;
 
 /**
  * The game's main frame.

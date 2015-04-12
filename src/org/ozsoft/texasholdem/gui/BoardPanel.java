@@ -28,6 +28,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import org.ozsoft.texasholdem.Card;
+import proxy.ProxyCardLabel;
 
 /**
  * Board panel with the community cards and general information.
@@ -53,6 +54,8 @@ public class BoardPanel extends JPanel {
 
     /** Labels with the community cards. */
     private final JLabel[] cardLabels;
+
+    private ProxyCardLabel[] proxyCardLabels;
     
     /** Label with a custom message. */
     private final JLabel messageLabel;
@@ -129,8 +132,10 @@ public class BoardPanel extends JPanel {
 
         // The five card positions.
         cardLabels = new JLabel[NO_OF_CARDS];
+        proxyCardLabels = new ProxyCardLabel[NO_OF_CARDS];
         for (int i = 0; i < 5; i++) {
             cardLabels[i] = new JLabel(ResourceManager.getIcon("/images/card_placeholder.png"));
+            proxyCardLabels[i] = new ProxyCardLabel("/images/card_placeholder.png");
             gc.gridx = i;
             gc.gridy = 2;
             gc.gridwidth = 1;
@@ -140,7 +145,8 @@ public class BoardPanel extends JPanel {
             gc.weightx = 0.0;
             gc.weighty = 0.0;
             gc.insets = new Insets(5, 1, 5, 1);
-            add(cardLabels[i], gc);
+//            add(cardLabels[i], gc);
+            add(proxyCardLabels[i].getCardLabel().getLabel(), gc);
         }
         
         // Message label.
@@ -197,9 +203,11 @@ public class BoardPanel extends JPanel {
         int noOfCards = (cards == null) ? 0 : cards.size();
         for (int i = 0; i < NO_OF_CARDS; i++) {
             if (i < noOfCards) {
-                cardLabels[i].setIcon(ResourceManager.getCardImage(cards.get(i)));
+//                cardLabels[i].setIcon(ResourceManager.getCardImage(cards.get(i)));
+                proxyCardLabels[i].applyIcon(cards.get(i));
             } else {
-                cardLabels[i].setIcon(ResourceManager.getIcon("/images/card_placeholder.png"));
+//                cardLabels[i].setIcon(ResourceManager.getIcon("/images/card_placeholder.png"));
+                proxyCardLabels[i].getCardLabel().getLabel().setIcon(ResourceManager.getIcon("/images/card_placeholder.png"));
             }
         }
     }
