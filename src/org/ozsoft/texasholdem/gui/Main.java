@@ -31,6 +31,7 @@ import java.util.Set;
 
 import javax.swing.JFrame;
 
+import factorymethod.EddieFactory;
 import org.ozsoft.texasholdem.Card;
 import org.ozsoft.texasholdem.Client;
 import org.ozsoft.texasholdem.Observer.ISubscriber;
@@ -121,8 +122,12 @@ public class Main extends JFrame implements Client, ISubscriber {
         players.put("Mike", factory2.createBot());
         //players.put("Mike",   new Player("Mike",  STARTING_CASH, new BasicBot(25, 50)));
         
-        EddieBotFactory factory3 = new EddieBotFactory();
-        players.put("Eddie", factory3.createBot());
+//        EddieBotFactory factory3 = new EddieBotFactory();
+//        players.put("Eddie", factory3.createBot());
+        EddieFactory eddieFactory = new EddieFactory();
+        Player eddie = eddieFactory.manufactureBot("Eddie");
+        players.put(eddie.getName(), eddie);
+
 
 //        FIXME: Not safe. Assumes player named Eddie exists
         Player clone = players.get("Eddie").clone();
