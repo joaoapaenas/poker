@@ -233,6 +233,7 @@ public class Player implements IPlayerPrototype, ISubscriber {
      * 
      * @param amount
      *            The amount of cash to pay.
+     *
      */
     public void payCash(int amount) {
         if (amount > cash) {

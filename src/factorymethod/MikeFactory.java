@@ -9,7 +9,7 @@ public class MikeFactory implements IBotCreator {
     MikeFactory()
     {
         System.out.println("creating bot Mike");
-    };
+    }
 
     @Override
     public Player manufactureBot(String name)

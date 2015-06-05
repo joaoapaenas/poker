@@ -1,6 +1,5 @@
 package factorymethod;
 
-import com.sun.tools.javac.code.Attribute;
 import org.ozsoft.texasholdem.Player;
 
 /**

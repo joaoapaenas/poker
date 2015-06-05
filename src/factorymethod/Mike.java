@@ -12,7 +12,7 @@ public class Mike implements Bot {
 
     Mike()
     {
-        this.name = "Mike";
+        name = "Mike";
         this.startingCash = 500;
         basicBot = new BasicBot(25, 50);
 
@@ -23,7 +23,7 @@ public class Mike implements Bot {
     }
 
     public void setName(String name) {
-        this.name = name;
+        Mike.name = name;
     }
 
     public int getStartingCash() {

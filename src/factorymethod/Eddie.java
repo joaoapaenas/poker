@@ -15,7 +15,7 @@ public class Eddie implements Bot {
     }
 
     public void setName(String name) {
-        this.name = name;
+        Eddie.name = name;
     }
 
     public int getStartingCash() {
@@ -36,7 +36,7 @@ public class Eddie implements Bot {
 
     Eddie()
     {
-        this.name = "Eddie";
+        name = "Eddie";
         this.startingCash = 500;
         basicBot = new BasicBot(50, 25);
     }

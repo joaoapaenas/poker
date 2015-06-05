@@ -168,7 +168,7 @@ public class Card implements Comparable<Card> {
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Card) {
-            return ((Card) obj).hashCode() == hashCode();
+            return obj.hashCode() == hashCode();
         } else {
             return false;
         }

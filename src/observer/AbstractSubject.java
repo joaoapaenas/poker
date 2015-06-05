@@ -22,8 +22,8 @@ public abstract class AbstractSubject {
     }
 
     public void notifySubscribers(String message){
-        for (int i = 0; i < subscribers.size(); i++) {
-            subscribers.get(i).updateMessageReceived(message);
-        };
+        for (ISubscriber subscriber : subscribers) {
+            subscriber.updateMessageReceived(message);
+        }
     }
 }
