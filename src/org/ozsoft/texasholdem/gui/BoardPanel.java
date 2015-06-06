@@ -204,6 +204,8 @@ public class BoardPanel extends JPanel {
         for (int i = 0; i < NO_OF_CARDS; i++) {
             if (i < noOfCards) {
 //                cardLabels[i].setIcon(ResourceManager.getCardImage(cards.get(i)));
+                // Assert cards variable is not null
+                assert cards != null;
                 proxyCardLabels[i].applyIcon(cards.get(i));
             } else {
 //                cardLabels[i].setIcon(ResourceManager.getIcon("/images/card_placeholder.png"));
