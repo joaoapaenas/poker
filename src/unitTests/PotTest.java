@@ -30,4 +30,15 @@ public class PotTest extends TestCase {
         assertEquals(60, pot.getBet());
         assertEquals(40, newPot.getBet());
     }
+
+    @Test
+    public void testClear() throws Exception {
+        Pot pot = new Pot(1000);
+        Player p = new Player("matheus", 599, null);
+
+        pot.addContributer(p);
+        pot.clear();
+
+        assertEquals(0, pot.getContributors().size());
+    }
 }
