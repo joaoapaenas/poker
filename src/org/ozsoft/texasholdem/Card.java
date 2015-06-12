@@ -162,7 +162,8 @@ public class Card implements Comparable<Card> {
     /** {@inheritDoc} */
     @Override
     public int hashCode() {
-        return (rank * NO_OF_SUITS + suit);
+        /* Useless parentheses can sometimes be misleading and so should be removed. */
+        return (rank * NO_OF_SUITS) + suit;
     }
 
     /** {@inheritDoc} */

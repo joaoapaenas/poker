@@ -47,9 +47,10 @@ public abstract class PokerUtils {
         int highRank = Math.max(rank1, rank2);
         int lowRank = Math.min(rank1, rank2);
         int rankDiff = highRank - lowRank;
-        int gap = (rankDiff > 1) ? rankDiff - 1 : 0;  
-        boolean isPair = (rank1 == rank2);
-        boolean isSuited = (suit1 == suit2);
+        int gap = (rankDiff > 1) ? rankDiff - 1 : 0;
+        /* Useless parentheses can sometimes be misleading and so should be removed. */
+        boolean isPair = rank1 == rank2;
+        boolean isSuited = suit1 == suit2;
         
         double score = 0.0;
         

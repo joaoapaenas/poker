@@ -508,12 +508,6 @@ public class Table {
      * Performs the showdown.
      */
     private void doShowdown() {
-//        System.out.println("\n[DEBUG] Pots:");
-//        for (Pot pot : pots) {
-//            System.out.format("  %s\n", pot);
-//        }
-//        System.out.format("[DEBUG]  Total: %d\n", getTotalPot());
-        
         // Determine show order; start with all-in players...
         List<Player> showingPlayers = new ArrayList<Player>();
         for (Pot pot : pots) {
@@ -595,7 +589,6 @@ public class Table {
             hand.addCards(player.getCards());
             // Store the player together with other players with the same hand value.
             HandValue handValue = new HandValue(hand);
-//            System.out.format("[DEBUG] %s: %s\n", player, handValue);
             List<Player> playerList = rankedPlayers.get(handValue);
             if (playerList == null) {
                 playerList = new ArrayList<Player>();
@@ -642,7 +635,6 @@ public class Table {
                             Integer oldShare = potDivision.get(winner);
                             if (oldShare != null) {
                                 potDivision.put(winner, oldShare + 1);
-//                                System.out.format("[DEBUG] %s receives an odd chip from the pot.\n", winner);
                                 oddChips--;
                             }
                         }
@@ -685,9 +677,6 @@ public class Table {
      */
     private void notifyMessage(String message, Object... args) {
         message = String.format(message, args);
-//        for (Player player : players) {
-//            player.getClient().messageReceived(message);
-//        }
         System.out.println("messaged");
         subject.notifySubscribers(message);
     }

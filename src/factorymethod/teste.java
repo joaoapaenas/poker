@@ -5,7 +5,7 @@ import org.ozsoft.texasholdem.Player;
 /**
  * Created by matheus on 4/12/15.
  */
-public class Teste {
+public class teste {
     public static void main(String[] args) {
         MikeFactory mikeFactory = new MikeFactory();
         EddieFactory eddieFactory = new EddieFactory();

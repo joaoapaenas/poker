@@ -126,10 +126,11 @@ public class HandEvaluator {
         findFlush();
         findDuplicates();
 
+        /* Useless parentheses can sometimes be misleading and so should be removed. */
         // Find special values.
-        boolean isSpecialValue = (isStraightFlush() || isFourOfAKind()
+        boolean isSpecialValue = isStraightFlush() || isFourOfAKind()
                 || isFullHouse() || isFlush() || isStraight()
-                || isThreeOfAKind() || isTwoPairs() || isOnePair());
+                || isThreeOfAKind() || isTwoPairs() || isOnePair();
 
         if (!isSpecialValue) {
             calculateHighCard();

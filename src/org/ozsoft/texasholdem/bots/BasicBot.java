@@ -137,7 +137,8 @@ public class BasicBot extends Bot {
         } else {
             double chenScore = PokerUtils.getChenScore(cards);
             double chenScoreToPlay = tightness * 0.2;
-            if ((chenScore < chenScoreToPlay)) {
+            /* Useless parentheses can sometimes be misleading and so should be removed. */
+            if (chenScore < chenScoreToPlay) {
                 if (allowedActions.contains(Action.CHECK)) {
                     // Always check for free if possible.
                     action = Action.CHECK;
