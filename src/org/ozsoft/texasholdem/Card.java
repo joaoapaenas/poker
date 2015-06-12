@@ -53,14 +53,15 @@ public class Card implements Comparable<Card> {
     public static final int HEARTS   = 2;
     public static final int CLUBS    = 1;
     public static final int DIAMONDS = 0;
-    
+
+    /* Public arrays, even ones declared static final can have their contents edited by malicious programs. */
     /** The rank symbols. */
-    public static final String[] RANK_SYMBOLS = {
+    private static final String[] RANK_SYMBOLS = {
         "2", "3", "4", "5", "6", "7", "8", "9", "T", "J", "Q", "K", "A"
     };
     
     /** The suit symbols. */
-    public static final char[] SUIT_SYMBOLS = { 'd', 'c', 'h', 's' };
+    private static final char[] SUIT_SYMBOLS = { 'd', 'c', 'h', 's' };
 
     /** The rank. */
     private final int rank;
