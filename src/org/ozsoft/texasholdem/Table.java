@@ -56,7 +56,7 @@ public class Table {
     private final List<Player> players;
 
     /** To notifies objects */
-    public static Subject subject;
+    private static Subject subject;
     
     /** The active players in the current hand. */
     private final List<Player> activePlayers;
@@ -480,25 +480,27 @@ public class Table {
      *            The amount to contribute.
      */
     private void contributePot(int amount) {
+        /* Treat parameters as final */
+        int tmpAmount = amount;
         for (Pot pot : pots) {
             if (!pot.hasContributer(actor)) {
                 int potBet = pot.getBet();
-                if (amount >= potBet) {
+                if (tmpAmount >= potBet) {
                     // Regular call, bet or raise.
                     pot.addContributer(actor);
-                    amount -= pot.getBet();
+                    tmpAmount -= pot.getBet();
                 } else {
                     // Partial call (all-in); redistribute pots.
-                    pots.add(pot.split(actor, amount));
-                    amount = 0;
+                    pots.add(pot.split(actor, tmpAmount));
+                    tmpAmount = 0;
                 }
             }
-            if (amount <= 0) {
+            if (tmpAmount <= 0) {
                 break;
             }
         }
-        if (amount > 0) {
-            Pot pot = new Pot(amount);
+        if (tmpAmount > 0) {
+            Pot pot = new Pot(tmpAmount);
             pot.addContributer(actor);
             pots.add(pot);
         }

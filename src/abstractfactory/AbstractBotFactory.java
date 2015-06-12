@@ -12,5 +12,6 @@ import org.ozsoft.texasholdem.Player;
  * @author joaoapenas
  */
 abstract class AbstractBotFactory {
-    abstract public Player createBot();
+    /* abstract public reduces code's readability */
+    public abstract Player createBot();
 }

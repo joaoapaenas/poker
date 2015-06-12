@@ -87,8 +87,10 @@ public class Deck {
      * @return  the card dealt
      */
     public Card deal() {
+        /* Constants can be referenced from many places */
+        final String noCards = "No cards left in deck";
         if (nextCardIndex + 1 >= NO_OF_CARDS) {
-            throw new IllegalStateException("No cards left in deck");
+            throw new IllegalStateException(noCards);
         }
         return cards[nextCardIndex++];
     }

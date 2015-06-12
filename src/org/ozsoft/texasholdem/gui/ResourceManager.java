@@ -29,6 +29,9 @@ import org.ozsoft.texasholdem.Card;
  * @author Oscar Stigter
  */
 public abstract class ResourceManager {
+
+    /* Utility classes should not have a public constructor so override the implicit one added by Java */
+    private ResourceManager() {}
     
     private static final String IMAGE_PATH_FORMAT = "/images/card_%s.png"; 
     

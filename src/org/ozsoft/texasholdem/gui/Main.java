@@ -114,14 +114,10 @@ public class Main extends JFrame implements Client, ISubscriber {
         
         BobBotFactory factory = new BobBotFactory();
         players.put("Joe", factory.createBot());
-        //players.put("Joe",    new Player("Joe",   STARTING_CASH, new BasicBot(0, 75)));
         
         MikeBotFactory factory2 = new MikeBotFactory();
         players.put("Mike", factory2.createBot());
-        //players.put("Mike",   new Player("Mike",  STARTING_CASH, new BasicBot(25, 50)));
-        
-//        EddieBotFactory factory3 = new EddieBotFactory();
-//        players.put("Eddie", factory3.createBot());
+
         EddieFactory eddieFactory = new EddieFactory();
         Player eddie = eddieFactory.manufactureBot("Eddie");
         players.put(eddie.getName(), eddie);
@@ -131,7 +127,6 @@ public class Main extends JFrame implements Client, ISubscriber {
         Player clone = players.get("Eddie").clone();
         players.remove("Eddie");
         players.put(clone.getName(), clone);
-        //players.put("math",  new Player("Eddie", STARTING_CASH, new BasicBot(50, 25)));
 
         table = new Table(TABLE_TYPE, BIG_BLIND);
         for (Player player : players.values()) {
